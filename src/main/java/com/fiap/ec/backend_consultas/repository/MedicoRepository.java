@@ -1,15 +1,18 @@
 package com.fiap.ec.backend_consultas.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.fiap.ec.backend_consultas.model.Paciente;
+import com.fiap.ec.backend_consultas.model.Medico;
 
-public interface PacienteRepository extends JpaRepository<Paciente, Long> {
-    Optional<Paciente> findByCpf(String cpf);
-    boolean existsByCpf(String cpf);
-    boolean existsByCpfAndIdNot(String cpf, Long id);
-    boolean existsByEmailIgnoreCase(String email);
-    boolean existsByEmailIgnoreCaseAndIdNot(String email, Long id);
+public interface MedicoRepository extends JpaRepository<Medico, Long> {
+    Optional<Medico> findByCrm(String crm);
+
+    List<Medico> findByEspecialidadeId(Long especialidadeId);
+
+    boolean existsByCrm(String crm);
+
+    boolean existsByCrmAndIdNot(String crm, Long id);
 }

@@ -22,8 +22,10 @@ import com.fiap.ec.backend_consultas.repository.MedicoRepository;
 import com.fiap.ec.backend_consultas.repository.PacienteRepository;
 
 /**
- * 1) Consolida cadastros duplicados já gravados no H2 (ex.: mesmo CRM várias vezes).
- * 2) Cria índices UNIQUE depois da limpeza - o Hibernate não pode criar a constraint
+ * 1) Consolida cadastros duplicados já gravados no H2 (ex.: mesmo CRM várias
+ * vezes).
+ * 2) Cria índices UNIQUE depois da limpeza - o Hibernate não pode criar a
+ * constraint
  * na subida se ainda existirem duplicatas, senão o servidor nem inicia.
  */
 @Component
@@ -38,11 +40,11 @@ public class UnicidadeStartup implements CommandLineRunner {
     private final PlatformTransactionManager transactionManager;
 
     public UnicidadeStartup(MedicoRepository medicoRepository,
-                            PacienteRepository pacienteRepository,
-                            EspecialidadeRepository especialidadeRepository,
-                            ConsultaRepository consultaRepository,
-                            JdbcTemplate jdbcTemplate,
-                            PlatformTransactionManager transactionManager) {
+            PacienteRepository pacienteRepository,
+            EspecialidadeRepository especialidadeRepository,
+            ConsultaRepository consultaRepository,
+            JdbcTemplate jdbcTemplate,
+            PlatformTransactionManager transactionManager) {
         this.medicoRepository = medicoRepository;
         this.pacienteRepository = pacienteRepository;
         this.especialidadeRepository = especialidadeRepository;

@@ -1,4 +1,5 @@
 package com.fiap.ec.backend_consultas.controller;
+
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,44 +12,52 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fiap.ec.backend_consultas.exception.RecursoNaoEncontradoException;
-import com.fiap.ec.backend_consultas.model.Medico;
-import com.fiap.ec.backend_consultas.service.MedicoService;
+import com.fiap.ec.backend_consultas.model.Consulta;
+import com.fiap.ec.backend_consultas.service.ConsultaService;
+
 @RestController
-@RequestMapping("/medicos")
+@RequestMapping("/consultas")
 @CrossOrigin
-public class MedicoController {
-    private final MedicoService service;
-    public MedicoController(MedicoService service) {
+public class ConsultaController {
+
+    private final ConsultaService service;
+
+    public ConsultaController(ConsultaService service) {
         this.service = service;
     }
+
     @GetMapping
-    public List<Medico> listar() {
+    public List<Consulta> listar() {
         return service.listar();
     }
+
     @GetMapping("/{id}")
-    public Medico buscarPorId(@PathVariable Long id) {
+    public Consulta buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id);
     }
+
     @PostMapping
-    public Medico salvar(@RequestBody Medico medico) {
-        return service.salvar(medico);
+    public Consulta criar(@RequestBody Consulta consulta) {
+        return service.salvar(consulta);
     }
+
     @PutMapping("/{id}")
-    public Medico atualizar(@PathVariable Long id, @RequestBody Medico medico) {
-        return service.atualizar(id, medico);
+    public Consulta atualizar(@PathVariable Long id, @RequestBody Consulta consulta) {
+        return service.atualizar(id, consulta);
     }
+
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
         service.deletar(id);
     }
-    @GetMapping("/crm/{crm}")
-    public Medico buscarPorCrm(@PathVariable String crm) {
-        return service.buscarPorCrm(crm)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("CRM não encontrado."));
+
+    @GetMapping("/medico/{medicoId}")
+    public List<Consulta> listarPorMedico(@PathVariable Long medicoId) {
+        return service.listarPorMedico(medicoId);
     }
-    @GetMapping("/especialidade/{especialidadeId}")
-    public List<Medico> listarPorEspecialidade(@PathVariable Long especialidadeId) {
-        return service.listarPorEspecialidade(especialidadeId);
+
+    @GetMapping("/paciente/{pacienteId}")
+    public List<Consulta> listarPorPaciente(@PathVariable Long pacienteId) {
+        return service.listarPorPaciente(pacienteId);
     }
 }
